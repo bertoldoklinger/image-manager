@@ -1,0 +1,48 @@
+service: image-manager
+
+# frameworkVersion: '3'  # Remova ou comente esta linha
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: us-east-1
+  stage: local
+  environment:
+    DATABASE_URL: ${env:DATABASE_URL}
+
+plugins:
+  - serverless-localstack
+
+custom:
+  localstack:
+    host: http://localhost
+    edgePort: 4566
+    stages:
+      - local
+    endpoints:
+      s3: http://localhost:4566
+      lambda: http://localhost:4566
+      apigateway: http://localhost:4566
+
+functions:
+  uploadImage:
+    handler: dist/lambda.uploadImage
+    events:
+      - http:
+          path: images/upload
+          method: post
+          cors: true
+  listImages:
+    handler: dist/lambda.listImages
+    events:
+      - http:
+          path: images
+          method: get
+          cors: true
+  deleteImage:
+    handler: dist/lambda.deleteImage
+    events:
+      - http:
+          path: images/{id}
+          method: delete
+          cors: true

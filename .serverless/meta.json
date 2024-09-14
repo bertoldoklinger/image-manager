@@ -1,0 +1,204 @@
+{
+  "/home/bertoldokbrj/dev/image-manager": {
+    "versionSfCore": null,
+    "versionFramework": "4.3.2",
+    "isWithinCompose": false,
+    "isCompose": false,
+    "composeOrgName": null,
+    "composeResolverProviders": {
+      "default-aws-credential-resolver": "<REDACTED>",
+      "env": {
+        "instance": {
+          "credentials": "<REDACTED>",
+          "serviceConfigFile": {
+            "service": "image-manager",
+            "frameworkVersion": ">=3 <5",
+            "provider": {
+              "name": "aws",
+              "runtime": "nodejs18.x",
+              "region": "us-east-1",
+              "endpointType": "REGIONAL",
+              "environment": {
+                "DATABASE_URL": "postgresql://user:password@localhost:5432/imagedb?schema=public"
+              },
+              "stage": "local"
+            },
+            "plugins": [
+              "serverless-localstack"
+            ],
+            "custom": {
+              "localstack": {
+                "host": "http://localhost",
+                "edgePort": 4566,
+                "stages": [
+                  "local"
+                ]
+              }
+            },
+            "functions": {
+              "uploadImage": {
+                "handler": "dist/lambda.uploadImage",
+                "events": [
+                  {
+                    "http": {
+                      "path": "images/upload",
+                      "method": "post",
+                      "cors": true
+                    }
+                  }
+                ]
+              },
+              "listImages": {
+                "handler": "dist/lambda.listImages",
+                "events": [
+                  {
+                    "http": {
+                      "path": "images",
+                      "method": "get",
+                      "cors": true
+                    }
+                  }
+                ]
+              },
+              "deleteImage": {
+                "handler": "dist/lambda.deleteImage",
+                "events": [
+                  {
+                    "http": {
+                      "path": "images/{id}",
+                      "method": "delete",
+                      "cors": true
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "configFileDirPath": "/home/bertoldokbrj/dev/image-manager",
+          "config": {
+            "type": "env"
+          },
+          "options": {
+            "stage": "local"
+          },
+          "stage": "local",
+          "dashboard": null,
+          "logger": {
+            "namespace": "s:core:resolver:env",
+            "prefix": null,
+            "prefixColor": null
+          },
+          "_credentialsPromise": "<REDACTED>"
+        },
+        "resolvers": {}
+      }
+    },
+    "composeServiceName": null,
+    "servicePath": "/home/bertoldokbrj/dev/image-manager",
+    "serviceConfigFileName": "serverless.yml",
+    "service": {
+      "service": "image-manager",
+      "frameworkVersion": ">=3 <5",
+      "provider": {
+        "name": "aws",
+        "runtime": "nodejs18.x",
+        "region": "us-east-1",
+        "endpointType": "REGIONAL",
+        "environment": {
+          "DATABASE_URL": "postgresql://user:password@localhost:5432/imagedb?schema=public"
+        },
+        "stage": "local"
+      },
+      "plugins": [
+        "serverless-localstack"
+      ],
+      "custom": {
+        "localstack": {
+          "host": "http://localhost",
+          "edgePort": 4566,
+          "stages": [
+            "local"
+          ]
+        }
+      },
+      "functions": {
+        "uploadImage": {
+          "handler": "dist/lambda.uploadImage",
+          "events": [
+            {
+              "http": {
+                "path": "images/upload",
+                "method": "post",
+                "cors": true
+              }
+            }
+          ]
+        },
+        "listImages": {
+          "handler": "dist/lambda.listImages",
+          "events": [
+            {
+              "http": {
+                "path": "images",
+                "method": "get",
+                "cors": true
+              }
+            }
+          ]
+        },
+        "deleteImage": {
+          "handler": "dist/lambda.deleteImage",
+          "events": [
+            {
+              "http": {
+                "path": "images/{id}",
+                "method": "delete",
+                "cors": true
+              }
+            }
+          ]
+        }
+      }
+    },
+    "serviceRawFile": "service: image-manager\n\nframeworkVersion: '>=3 <5'\n\nprovider:\n  name: aws\n  runtime: nodejs18.x\n  region: us-east-1\n  endpointType: REGIONAL\n  environment:\n    DATABASE_URL: ${env:DATABASE_URL}\n\nplugins:\n  - serverless-localstack\n\ncustom:\n  localstack:\n    host: http://localhost\n    edgePort: 4566\n    stages:\n      - local\n\nfunctions:\n  uploadImage:\n    handler: dist/lambda.uploadImage\n    events:\n      - http:\n          path: images/upload\n          method: post\n          cors: true\n  listImages:\n    handler: dist/lambda.listImages\n    events:\n      - http:\n          path: images\n          method: get\n          cors: true\n  deleteImage:\n    handler: dist/lambda.deleteImage\n    events:\n      - http:\n          path: images/{id}\n          method: delete\n          cors: true\n",
+    "command": [
+      "deploy"
+    ],
+    "options": {
+      "stage": "local"
+    },
+    "error": {
+      "message": "The Serverless version (4.3.2) does not satisfy the \"frameworkVersion\" (>=3 <5) in serverless.yml",
+      "stack": "ServerlessError2: The Serverless version (4.3.2) does not satisfy the \"frameworkVersion\" (>=3 <5) in serverless.yml\n    at Service.loadServiceFileParam (file:///root/.serverless/releases/4.3.2/package/dist/sf-core.js:914:9333)\n    at Service.load (file:///root/.serverless/releases/4.3.2/package/dist/sf-core.js:914:6975)\n    at Serverless.init (file:///root/.serverless/releases/4.3.2/package/dist/sf-core.js:920:9896)\n    at runFramework (file:///root/.serverless/releases/4.3.2/package/dist/sf-core.js:943:1253)\n    at async route (file:///root/.serverless/releases/4.3.2/package/dist/sf-core.js:966:29270)\n    at async Object.run2 [as run] (file:///root/.serverless/releases/4.3.2/package/dist/sf-core.js:966:29668)\n    at async run3 (file:///root/.serverless/releases/4.3.2/package/dist/sf-core.js:966:30928)",
+      "code": "FRAMEWORK_VERSION_MISMATCH"
+    },
+    "params": {},
+    "machineId": "61d4bf215b2ee1ee05e645ae137a18bc",
+    "stage": "local",
+    "accessKeyV2": "<REDACTED>",
+    "accessKeyV1": "<REDACTED>",
+    "orgId": "abdbf18e-905c-48ec-adfe-1f818d54fd11",
+    "orgName": "bertoldo",
+    "userId": "Fb0gfhFxj9823pZPG3",
+    "dashboard": {
+      "isEnabledForService": false,
+      "requiredAuthentication": false,
+      "orgFeaturesInUse": null,
+      "orgObservabilityIntegrations": null,
+      "serviceAppId": null,
+      "serviceProvider": null,
+      "instanceParameters": null
+    },
+    "userName": "bertoldo",
+    "subscription": null,
+    "userEmail": "bertoldokbrj@gmail.com",
+    "projectType": "traditional",
+    "versionSf": "4.3.2",
+    "serviceUniqueId": null,
+    "serviceProviderAwsCfStackId": null,
+    "serviceProviderAwsCfStackCreated": null,
+    "serviceProviderAwsCfStackUpdated": null,
+    "serviceProviderAwsCfStackStatus": null,
+    "serviceProviderAwsCfStackOutputs": null
+  }
+}
